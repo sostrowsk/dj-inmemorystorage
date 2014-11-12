@@ -55,6 +55,8 @@ class MemoryStorageTests(unittest.TestCase):
         self.assertEqual(self.storage.size('file'), 4)
         self.storage.save('subdir/file', ContentFile('test'))
         self.assertEqual(self.storage.size('subdir/file'), 4)
+        self.storage.save('bytes_file', ContentFile(b'test'))
+        self.assertEqual(self.storage.size('bytes_file'), 4)
 
     def test_write(self):
         with self.storage.open("file", "w") as f:
