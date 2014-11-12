@@ -101,7 +101,8 @@ class InMemoryDir(InMemoryNode):
                 return self.children[current]
             if not create:
                 raise PathDoesNotExist()
-            node = InMemoryFile(name=current, content=b'' if byte else u'')
+            content = six.binary_type() if byte else six.text_type()
+            node = InMemoryFile(name=current, content=content)
             self.add_child(current, node)
             return node
         if current in self.children.keys():
