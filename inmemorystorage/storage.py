@@ -90,7 +90,7 @@ class InMemoryDir(InMemoryNode):
         self.children = {}
         self.parent = parent
 
-    def resolve(self, path, create=False):
+    def resolve(self, path, create=False, use_bytes=False):
         path_bits = path.strip('/').split('/', 1)
         current = path_bits[0]
         rest = path_bits[1] if len(path_bits) > 1 else None
@@ -101,16 +101,17 @@ class InMemoryDir(InMemoryNode):
                 return self.children[current]
             if not create:
                 raise PathDoesNotExist()
-            node = InMemoryFile(name=current)
+            content = six.binary_type() if use_bytes else six.text_type()
+            node = InMemoryFile(name=current, content=content)
             self.add_child(current, node)
             return node
         if current in self.children.keys():
-            return self.children[current].resolve(rest, create=create)
+            return self.children[current].resolve(rest, create=create, use_bytes=use_bytes)
         if not create:
             raise PathDoesNotExist()
         node = InMemoryDir()
         self.add_child(current, node)
-        return self.children[current].resolve(rest, create)
+        return self.children[current].resolve(rest, create=create, use_bytes=use_bytes)
 
     def ls(self, path=''):
         return list(self.resolve(path).children.keys())
@@ -141,13 +142,15 @@ class InMemoryDir(InMemoryNode):
 
     def open(self, path, mode="r"):
         create = "w" in mode
-        f = self.resolve(path, create=create)
+        use_bytes = "b" in mode
+        f = self.resolve(path, create=create, use_bytes=use_bytes)
         f.open(mode)
         f.last_accessed = timezone.now()
         return f
 
     def save(self, path, content):
-        with self.open(path, "w") as f:
+        mode = 'wb' if isinstance(content, six.binary_type) else 'w'
+        with self.open(path, mode) as f:
             f.write(content)
         f.last_modified = timezone.now()
         return path
