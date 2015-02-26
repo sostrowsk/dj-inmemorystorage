@@ -141,6 +141,18 @@ class MemoryStorageTests(unittest.TestCase):
         after_write_created_time = self.storage.created_time('file')
         self.assertEqual(after_write_created_time, created_time)
 
+    @override_settings(INMEMORYSTORAGE_PERSIST=True)
+    def test_persistance(self):
+        storage_a = InMemoryStorage()
+        storage_b = InMemoryStorage()
+
+        assert storage_a.filesystem is storage_b.filesystem
+
+    def test_no_persistance_without_setting(self):
+        storage_a = InMemoryStorage()
+        storage_b = InMemoryStorage()
+
+        assert storage_a.filesystem is not storage_b.filesystem
 
 if __name__ == '__main__':
     unittest.main()

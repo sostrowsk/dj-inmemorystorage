@@ -5,7 +5,7 @@ dj-inmemorystorage
 .. image:: https://travis-ci.org/waveaccounting/dj-inmemorystorage.png?branch=master
    :target: https://travis-ci.org/waveaccounting/dj-inmemorystorage
 
-A non-persistent in-memory data storage backend for Django.
+An in-memory data storage backend for Django.
 
 Compatible with Django's `storage API <https://docs.djangoproject.com/en/dev/ref/files/storage/>`_.
 
@@ -25,6 +25,17 @@ In your test settings file, add
 .. code:: python
 
     DEFAULT_FILE_STORAGE = 'inmemorystorage.InMemoryStorage'
+
+By default, the ``InMemoryStorage`` backend is non-persistant, meaning that
+writes to it from one section of your code will not be present when reading
+from another section of your code, unless both are sharing the same instance of
+the storage backend.
+
+If you need your storage to persist, you can add the following to your settings.
+
+.. code:: python
+
+    INMEMORYSTORAGE_PERSIST = True
 
 ===========
 Differences

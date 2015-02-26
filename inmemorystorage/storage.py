@@ -156,12 +156,18 @@ class InMemoryDir(InMemoryNode):
         return path
 
 
+_filesystem = InMemoryDir()
+
+
 class InMemoryStorage(Storage):
     """
     Django storage class for in-memory filesystem.
     """
     def __init__(self, filesystem=None, base_url=None):
-        self.filesystem = filesystem or InMemoryDir()
+        if not filesystem and getattr(settings, "INMEMORYSTORAGE_PERSIST", False):
+            self.filesystem = _filesystem
+        else:
+            self.filesystem = filesystem or InMemoryDir()
 
         if base_url is None:
             base_url = settings.MEDIA_URL
