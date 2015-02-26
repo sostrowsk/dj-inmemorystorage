@@ -146,13 +146,15 @@ class MemoryStorageTests(unittest.TestCase):
         storage_a = InMemoryStorage()
         storage_b = InMemoryStorage()
 
-        assert storage_a.filesystem is storage_b.filesystem
+        # Can't use self.assertIs because it isn't available in Python 2.6
+        self.assertTrue(storage_a.filesystem is storage_b.filesystem)
 
     def test_no_persistance_without_setting(self):
         storage_a = InMemoryStorage()
         storage_b = InMemoryStorage()
 
-        assert storage_a.filesystem is not storage_b.filesystem
+        # Can't use self.assertIs because it isn't available in Python 2.6
+        self.assertTrue(storage_a.filesystem is not storage_b.filesystem)
 
 if __name__ == '__main__':
     unittest.main()
