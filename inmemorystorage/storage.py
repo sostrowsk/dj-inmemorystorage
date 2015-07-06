@@ -96,7 +96,7 @@ class InMemoryDir(InMemoryNode):
         current = path_bits[0]
         rest = path_bits[1] if len(path_bits) > 1 else None
         if not rest:
-            if current == '':
+            if current == '.' or current == '':
                 return self
             if current in self.children.keys():
                 return self.children[current]
