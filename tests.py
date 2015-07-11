@@ -25,6 +25,7 @@ class MemoryStorageTests(unittest.TestCase):
 
         self.filesystem.resolve('dir0').add_child('subdir', InMemoryDir())
         self.assertEqual(self.storage.listdir('dir0'), [['subdir'], []])
+        self.assertEqual(self.storage.listdir('dir0/subdir'), [[], []])
 
     def test_delete(self):
         self.filesystem.add_child('dir0', InMemoryDir())

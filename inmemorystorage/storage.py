@@ -91,11 +91,12 @@ class InMemoryDir(InMemoryNode):
         self.parent = parent
 
     def resolve(self, path, create=False, use_bytes=False):
-        path_bits = path.strip('/').split('/', 1)
+        path = os.path.normpath(path)
+        path_bits = path.strip(os.sep).split(os.sep, 1)
         current = path_bits[0]
         rest = path_bits[1] if len(path_bits) > 1 else None
         if not rest:
-            if current == '':
+            if current == '.' or current == '':
                 return self
             if current in self.children.keys():
                 return self.children[current]
