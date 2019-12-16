@@ -19,8 +19,8 @@ import six
 from django.core.files.storage import Storage
 from django.core.files.base import ContentFile
 from django.utils.encoding import filepath_to_uri
-from django.utils.six.moves.urllib.parse import urljoin
 from django.utils import timezone
+from six.moves.urllib.parse import urljoin
 
 
 class PathDoesNotExist(Exception):
