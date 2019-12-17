@@ -17,6 +17,7 @@ Python 2.6/2.7 with Django 1.4+
 Python 3.2/3.3/3.4 with Django 1.5+
 Python 3.5/3.6 with Django 1.7+
 Python 3.7 with Django 1.11.17+
+Python 3.8 with Django 2.2.8+
 
 =====
 Usage
