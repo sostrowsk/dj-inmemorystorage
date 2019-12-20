@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## December 17, 2019
+## 2.0.0 - December 17, 2019
 
 - Stop testing Python 2.6, 3.2, 3.3, 3.5.
 - Stop testing Django < 1.11
