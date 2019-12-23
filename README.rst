@@ -13,9 +13,11 @@ Compatible with Django's `storage API <https://docs.djangoproject.com/en/dev/ref
 Supported Versions
 ==================
 
-Python 2.6/2.7 with Django 1.4+
-Python 3.2/3.3/3.4 with Django 1.5+
-Python 3.5/3.6 with Django 1.7+
+- Python 2.7 with Django 1.11
+- Python 3.5/3.6/3.7 with Django 1.11+
+- Python 3.8 with Django 2.2+
+
+In general, we follow `Python's supported versions <https://devguide.python.org/#status-of-python-branches>`_ and `Django's supported versions <https://docs.djangoproject.com/en/dev/faq/install/#what-python-version-can-i-use-with-django>`_. Any major change in version support will be released as a new major version.
 
 =====
 Usage
