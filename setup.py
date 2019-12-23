@@ -11,8 +11,9 @@ setup(
     description="A non-persistent in-memory data storage backend for Django.",
     version="2.0.0",
     url="https://github.com/waveaccounting/dj-inmemorystorage",
-    license=open('LICENSE').read(),
-    long_description=open('README.rst').read(),
+    license='BSD',
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     author='Cody Soyland, Seán Hayes, Tore Birkeland, Nick Presta',
     author_email='opensource@waveapps.com',
     packages=[
