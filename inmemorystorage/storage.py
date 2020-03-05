@@ -101,7 +101,7 @@ class InMemoryDir(InMemoryNode):
             if current in self.children.keys():
                 return self.children[current]
             if not create:
-                raise PathDoesNotExist()
+                raise PathDoesNotExist(path)
             content = six.binary_type() if use_bytes else six.text_type()
             node = InMemoryFile(name=current, content=content)
             self.add_child(current, node)
@@ -109,7 +109,7 @@ class InMemoryDir(InMemoryNode):
         if current in self.children.keys():
             return self.children[current].resolve(rest, create=create, use_bytes=use_bytes)
         if not create:
-            raise PathDoesNotExist()
+            raise PathDoesNotExist(path)
         node = InMemoryDir()
         self.add_child(current, node)
         return self.children[current].resolve(rest, create=create, use_bytes=use_bytes)
