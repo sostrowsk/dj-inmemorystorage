@@ -2,6 +2,8 @@
 
 [![image](https://travis-ci.org/waveaccounting/dj-inmemorystorage.png?branch=master)](https://travis-ci.org/waveaccounting/dj-inmemorystorage)
 
+[![PyPI](https://img.shields.io/pypi/v/dj-inmemorystorage.svg)](https://pypi.python.org/pypi/dj-inmemorystorage)
+
 An in-memory data storage backend for Django.
 
 Compatible with Django's [storage
