@@ -1,10 +1,12 @@
 import time
 import unittest
-from inmemorystorage import InMemoryStorage
-from inmemorystorage.storage import InMemoryDir, InMemoryFile
-from django.core.files.base import ContentFile
+
 from django.conf import settings
+from django.core.files.base import ContentFile
 from django.test.utils import override_settings
+
+from inmemorystorage import InMemoryStorage
+from inmemorystorage.storage import InMemoryDir, InMemoryFile, PathDoesNotExist
 
 
 class MemoryStorageTests(unittest.TestCase):
@@ -64,6 +66,12 @@ class MemoryStorageTests(unittest.TestCase):
             f.write("hello")
         with self.storage.open("file", "r") as f:
             self.assertEqual(f.read(), "hello")
+
+    def test_missing(self):
+        missing_file_name = "missing-file"
+        with self.assertRaises(PathDoesNotExist) as context_manager:
+            self.storage.open(missing_file_name, "r")
+            self.assertEqual(context_manager.exception.args, (missing_file_name,))
 
     def test_all(self):
         self.assertEqual(self.storage.listdir('/'), [[], []])
@@ -156,6 +164,7 @@ class MemoryStorageTests(unittest.TestCase):
 
         # Can't use self.assertIs because it isn't available in Python 2.6
         self.assertTrue(storage_a.filesystem is not storage_b.filesystem)
+
 
 if __name__ == '__main__':
     unittest.main()
