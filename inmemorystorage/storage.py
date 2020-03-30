@@ -9,6 +9,7 @@ except ImportError:
 from django.conf import settings
 from django.core.files.storage import Storage
 from django.core.files.base import File
+from django.utils.deconstruct import deconstructible
 try:
     from django.utils.encoding import filepath_to_uri, force_bytes
 except ImportError:
@@ -159,7 +160,7 @@ class InMemoryDir(InMemoryNode):
 
 _filesystem = InMemoryDir()
 
-
+@deconstructible
 class InMemoryStorage(Storage):
     """
     Django storage class for in-memory filesystem.
@@ -208,3 +209,6 @@ class InMemoryStorage(Storage):
     def created_time(self, name):
         file = self.filesystem.resolve(name)
         return file.created_at
+
+    def __eq__(self, other):
+        return self.filesystem == other.filesystem and self.base_url == other.base_url
