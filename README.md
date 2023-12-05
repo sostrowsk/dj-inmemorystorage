@@ -6,4 +6,4 @@ Forked from https://github.com/waveaccounting/dj-inmemorystorage
 
 # With a Mock for path
 
-Return a mock path or raise an appropriate exception
+Return a mock path
