@@ -210,5 +210,12 @@ class InMemoryStorage(Storage):
         file = self.filesystem.resolve(name)
         return file.created_at
 
+    def path(self, name):
+        # Return a mock path or raise an appropriate exception
+        if name in self.files:
+            return "in-memory://{}".format(name)
+        else:
+            raise ValueError("File does not exist in in-memory storage")
+
     def __eq__(self, other):
         return self.filesystem == other.filesystem and self.base_url == other.base_url
